@@ -1,40 +1,22 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import gdown
-import os
 
 # Debugging utility
 def log_debug(message):
     st.write(f"DEBUG: {message}")
 
-# Function to download model from Google Drive
-@st.cache_resource
-def download_model_from_gdrive():
-    try:
-        url = "https://drive.google.com/file/d/1teGSB1uWQsMbmE_Y2oxsl50jkPbeoXQO/view?usp=sharing"  # Ganti 'YOUR_FILE_ID' dengan ID file Google Drive
-        output = "model.pkl"
-        log_debug("Downloading model from Google Drive...")
-        
-        # Download the file
-        gdown.download(url, output, quiet=False)
-        log_debug(f"Model downloaded successfully. File exists: {os.path.exists(output)}")
-        
-        return output
-    except Exception as e:
-        log_debug(f"Error during model download: {e}")
-        raise
-
-# Function to load the model
+# Function to load the model from local directory
 @st.cache_resource
 def load_model():
     try:
         log_debug("Starting to load model...")
         
-        # Download and load the model
-        model_path = download_model_from_gdrive()
+        # Path ke file model lokal
+        model_path = "model_non_parallel.pkl"
         log_debug(f"Model file path: {model_path}")
         
+        # Muat model
         model = joblib.load(model_path)
         log_debug("Model loaded successfully.")
         
