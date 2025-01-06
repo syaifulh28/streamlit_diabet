@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import gdown
-
+pip show scikit-learn joblib
 # Function to download model from Google Drive
 @st.cache_resource
 def download_model_from_gdrive():
